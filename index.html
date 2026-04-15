@@ -1,0 +1,692 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>油价监测看板</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --panel: rgba(255, 248, 238, 0.88);
+      --panel-strong: #fff8f0;
+      --ink: #1f1a17;
+      --muted: #6e6259;
+      --line: rgba(46, 35, 28, 0.1);
+      --accent: #d6532f;
+      --accent-2: #f0a33a;
+      --rise: #0f8b5f;
+      --fall: #c0392b;
+      --flat: #8b7e74;
+      --shadow: 0 24px 60px rgba(78, 51, 31, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(240, 163, 58, 0.22), transparent 28%),
+        radial-gradient(circle at right 20%, rgba(214, 83, 47, 0.22), transparent 26%),
+        linear-gradient(180deg, #f6f1e8 0%, #efe6da 100%);
+    }
+
+    .shell {
+      width: min(1280px, calc(100vw - 32px));
+      margin: 24px auto 48px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 28px 28px 24px;
+      background:
+        linear-gradient(135deg, rgba(34, 24, 20, 0.95), rgba(107, 54, 31, 0.93)),
+        linear-gradient(135deg, #2e231c, #784124);
+      color: #fff8f0;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% -28% auto;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240, 163, 58, 0.48), transparent 62%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255, 248, 240, 0.12);
+      border: 1px solid rgba(255, 248, 240, 0.14);
+    }
+
+    .hero h1 {
+      margin: 14px 0 10px;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 700px;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      color: rgba(255, 248, 240, 0.78);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .hero-meta {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: rgba(255, 248, 240, 0.82);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(71, 49, 34, 0.08);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric-card {
+      grid-column: span 4;
+      padding: 20px;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .metric-card.featured {
+      background:
+        linear-gradient(180deg, rgba(255, 248, 238, 0.94), rgba(255, 244, 230, 0.92));
+      border: 1px solid rgba(214, 83, 47, 0.16);
+    }
+
+    .metric-kicker {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .metric-price {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .metric-sub {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .metric-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .metric-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(46, 35, 28, 0.08);
+      color: var(--muted);
+    }
+
+    .trend-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .pill {
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(46, 35, 28, 0.08);
+    }
+
+    .pill b {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .trend-value {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+    }
+
+    .status-up { color: var(--rise); }
+    .status-down { color: var(--fall); }
+    .status-flat { color: var(--flat); }
+
+    .wide-card {
+      grid-column: span 8;
+      padding: 22px;
+    }
+
+    .side-card {
+      grid-column: span 4;
+      padding: 22px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2,
+    .section-title h3 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .chart-panel {
+      padding: 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(46, 35, 28, 0.08);
+    }
+
+    .chart-panel strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .spark {
+      width: 100%;
+      height: 170px;
+      display: block;
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(240, 163, 58, 0.09), rgba(214, 83, 47, 0.02)),
+        linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.32));
+    }
+
+    .legend {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      background: rgba(255,255,255,0.52);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .signal-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .signal {
+      padding: 14px 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(46, 35, 28, 0.08);
+    }
+
+    .signal small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .signal strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .signal .mini-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(46, 35, 28, 0.08);
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 960px) {
+      .metric-card, .wide-card, .side-card { grid-column: 1 / -1; }
+      .chart-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100vw - 18px, 1280px);
+        margin: 10px auto 28px;
+      }
+      .hero {
+        border-radius: 20px;
+        padding: 18px 16px;
+      }
+      .hero h1 {
+        font-size: 28px;
+        line-height: 1.08;
+      }
+      .hero p {
+        font-size: 14px;
+      }
+      .metric-card,
+      .wide-card,
+      .side-card {
+        padding: 16px;
+        border-radius: 18px;
+      }
+      .trend-row {
+        grid-template-columns: 1fr;
+      }
+      th, td {
+        padding: 10px 9px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="eyebrow">每日更新 · 固定看板</div>
+      <h1 id="hero-title">油价监测看板</h1>
+      <p>这是一个固定地址的日更 BI 页面。每天覆盖更新同一份网页，不再生成新的页面文件，适合直接打开，也方便后续挂到内网或静态站点。</p>
+      <div class="hero-meta">
+        <div id="generated-at"></div>
+        <div id="civil-source"></div>
+        <div id="market-source"></div>
+      </div>
+    </section>
+
+    <section class="grid" id="metric-grid"></section>
+
+    <section class="grid">
+      <article class="wide-card card">
+        <div class="section-title">
+          <h2>趋势曲线</h2>
+          <span>Brent / 上海原油 / 成都民用油价</span>
+        </div>
+        <div class="chart-grid" id="chart-grid"></div>
+      </article>
+
+      <aside class="side-card card">
+        <div class="section-title">
+          <h3>今日判断</h3>
+          <span>一眼读懂</span>
+        </div>
+        <div class="signal-list" id="signal-list"></div>
+        <div class="footer-note">
+          民用油价更贴近生活，但通常不会像期货一样分钟级波动。这个看板把“成都零售价”和“国际/国内原油”拆开看，便于判断生活端和市场端是否同向。
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="wide-card card">
+        <div class="section-title">
+          <h2>成都民用油价明细</h2>
+          <span>按网页可见最新零售价展示</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>92#</th>
+              <th>95#</th>
+              <th>98#</th>
+              <th>0#柴油</th>
+            </tr>
+          </thead>
+          <tbody id="civil-history-body"></tbody>
+        </table>
+      </article>
+
+      <article class="side-card card">
+        <div class="section-title">
+          <h3>最新快照</h3>
+          <span>今日值</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>指标</th>
+              <th>数值</th>
+            </tr>
+          </thead>
+          <tbody id="snapshot-body"></tbody>
+        </table>
+      </article>
+    </section>
+  </div>
+
+  <script>
+    const data = {"generatedAt":"2026-04-15 16:42","dashboardTitle":"dashboard","dashboardDate":"2026-04-15","civilOil":{"source":"Autohome Chengdu Oil","sourceUrl":"https://www.autohome.com.cn/oil/510100.html","latest":{"date":"2026-04-15","oil92":8.99,"oil95":9.61,"oil98":10.97,"diesel0":8.63},"history":[{"date":"2026-04-01","oil92":8.66,"oil95":9.25,"oil98":12.25,"diesel0":8.29},{"date":"2026-04-02","oil92":8.66,"oil95":9.25,"oil98":10.46,"diesel0":8.29},{"date":"2026-04-03","oil92":8.66,"oil95":9.25,"oil98":12.25,"diesel0":8.29},{"date":"2026-04-05","oil92":8.66,"oil95":9.25,"oil98":10.46,"diesel0":8.29},{"date":"2026-04-07","oil92":8.66,"oil95":9.25,"oil98":12.25,"diesel0":8.29},{"date":"2026-04-08","oil92":8.66,"oil95":9.25,"oil98":10.46,"diesel0":8.29},{"date":"2026-04-09","oil92":8.99,"oil95":9.61,"oil98":12.25,"diesel0":8.63},{"date":"2026-04-10","oil92":8.99,"oil95":9.61,"oil98":10.97,"diesel0":8.63},{"date":"2026-04-12","oil92":8.99,"oil95":9.61,"oil98":12.25,"diesel0":8.63},{"date":"2026-04-15","oil92":8.99,"oil95":9.61,"oil98":10.97,"diesel0":8.63}]},"brent":{"latest":{"price":95.535}},"domestic":{"latest":{"price":629.9}},"metrics":[{"kicker":"chengdu-92","priceText":"8.99 CNY/L","subText":"retail price closest to daily refueling.","view":{"label":"trend mixed","direction":"flat"},"trends":[{"label":"day","changePct":0,"direction":"flat"},{"label":"7d","changePct":3.81,"direction":"up"},{"label":"1m","changePct":0,"direction":"flat"}]},{"kicker":"chengdu-95","priceText":"9.61 CNY/L","subText":"common premium retail fuel.","view":{"label":"trend mixed","direction":"flat"},"trends":[{"label":"day","changePct":0,"direction":"flat"},{"label":"7d","changePct":3.89,"direction":"up"},{"label":"1m","changePct":0,"direction":"flat"}]},{"kicker":"brent","priceText":"95.535 USD/barrel","subText":"global crude benchmark.","view":{"label":"trend mixed","direction":"flat"},"trends":[{"label":"day","changePct":0.33,"direction":"up"},{"label":"7d","changePct":-1.15,"direction":"down"},{"label":"1m","changePct":-5.23,"direction":"down"}]},{"kicker":"shanghai-crude","priceText":"629.900 CNY/barrel","subText":"domestic market proxy.","view":{"label":"trend mixed","direction":"flat"},"trends":[{"label":"day","changePct":-3.27,"direction":"down"},{"label":"7d","changePct":1.43,"direction":"up"},{"label":"1m","changePct":-18.25,"direction":"down"}]}],"charts":[{"title":"chengdu-92","points":[{"label":"03-30","value":8.66},{"label":"03-31","value":8.66},{"label":"04-01","value":8.66},{"label":"04-02","value":8.66},{"label":"04-03","value":8.66},{"label":"04-05","value":8.66},{"label":"04-07","value":8.66},{"label":"04-08","value":8.66},{"label":"04-09","value":8.99},{"label":"04-10","value":8.99},{"label":"04-12","value":8.99},{"label":"04-15","value":8.99}]},{"title":"brent","points":[{"label":"03-04","value":82.55},{"label":"03-05","value":84.28},{"label":"03-06","value":93.32},{"label":"03-09","value":89.8},{"label":"03-10","value":91.37},{"label":"03-11","value":93.66},{"label":"03-12","value":101.71},{"label":"03-13","value":103.83},{"label":"03-16","value":100.81},{"label":"03-17","value":99.49},{"label":"03-18","value":104.66},{"label":"03-19","value":102.6},{"label":"03-20","value":104.31},{"label":"03-23","value":96.15},{"label":"03-24","value":95.85},{"label":"03-25","value":98.06},{"label":"03-26","value":100.76},{"label":"03-27","value":106.59},{"label":"03-30","value":108.8},{"label":"03-31","value":103.51},{"label":"04-01","value":100.12},{"label":"04-02","value":109.24},{"label":"04-06","value":109.57},{"label":"04-07","value":103.68},{"label":"04-08","value":96.65},{"label":"04-09","value":96.41},{"label":"04-10","value":94.26},{"label":"04-13","value":97.95},{"label":"04-14","value":95.22},{"label":"04-15","value":95.62}]},{"title":"shanghai-crude","points":[{"label":"03-04","value":641.1},{"label":"03-05","value":664.1},{"label":"03-06","value":664.8},{"label":"03-09","value":771.8},{"label":"03-10","value":666.3},{"label":"03-11","value":662},{"label":"03-12","value":722.3},{"label":"03-13","value":753.6},{"label":"03-16","value":770.5},{"label":"03-17","value":761.2},{"label":"03-18","value":735.4},{"label":"03-19","value":814.9},{"label":"03-20","value":773.6},{"label":"03-23","value":834.6},{"label":"03-24","value":739.1},{"label":"03-25","value":723.9},{"label":"03-26","value":733.1},{"label":"03-27","value":740.8},{"label":"03-30","value":763.5},{"label":"03-31","value":740.6},{"label":"04-01","value":653.8},{"label":"04-02","value":721.3},{"label":"04-03","value":722},{"label":"04-07","value":710},{"label":"04-08","value":621},{"label":"04-09","value":640},{"label":"04-10","value":637.3},{"label":"04-13","value":658},{"label":"04-14","value":651.2},{"label":"04-15","value":629.9}]}],"signals":[{"title":"chengdu-retail","text":"chengdu retail: overall range; day flat, 7d up."},{"title":"brent","text":"brent: overall range; day up, 7d down, 1m down."},{"title":"shanghai-crude","text":"shanghai crude: overall range; day down, 7d up, 1m down."}]};
+
+    const metricNameMap = {
+      'chengdu-92': '成都92#汽油',
+      'chengdu-95': '成都95#汽油',
+      'brent': 'Brent国际油价',
+      'shanghai-crude': '上海原油连续'
+    };
+
+    const trendLabelMap = {
+      day: '当日',
+      '7d': '近7日',
+      '1m': '近1月'
+    };
+
+    const signalTitleMap = {
+      'chengdu-retail': '成都民用油价',
+      brent: 'Brent国际油价',
+      'shanghai-crude': '上海原油连续'
+    };
+
+    const metricSubMap = {
+      'chengdu-92': '最贴近日常加油感受的民用价格。',
+      'chengdu-95': '常见高标号民用汽油价格。',
+      brent: '国际原油基准，用来看全球油价方向。',
+      'shanghai-crude': '国内市场风向参考，不等同民用零售价。'
+    };
+
+    function fmtNum(value, digits = 2) {
+      return Number(value).toFixed(digits);
+    }
+
+    function pctClass(direction) {
+      if (direction === 'up') return 'status-up';
+      if (direction === 'down') return 'status-down';
+      return 'status-flat';
+    }
+
+    function fmtPct(value) {
+      const n = Number(value);
+      const sign = n > 0 ? '+' : '';
+      return `${sign}${n.toFixed(2)}%`;
+    }
+
+    function statusText(direction) {
+      if (direction === 'up') return '上行';
+      if (direction === 'down') return '下行';
+      return '震荡';
+    }
+
+    function viewLabel(label) {
+      if (label === 'trend strong') return '趋势偏强';
+      if (label === 'trend weak') return '趋势偏弱';
+      return '震荡为主';
+    }
+
+    function directionArrow(direction) {
+      if (direction === 'up') return '↑';
+      if (direction === 'down') return '↓';
+      return '→';
+    }
+
+    function translateSignalText(text) {
+      return text
+        .replace('chengdu retail', '成都民用油价')
+        .replace('shanghai crude', '上海原油连续')
+        .replace('brent', 'Brent国际油价')
+        .replace('overall strong', '整体偏强')
+        .replace('overall weak', '整体偏弱')
+        .replace('overall range', '整体震荡')
+        .replace('day up', '当日上行')
+        .replace('day down', '当日下行')
+        .replace('day flat', '当日震荡')
+        .replace('7d up', '近7日上行')
+        .replace('7d down', '近7日下行')
+        .replace('7d flat', '近7日震荡')
+        .replace('1m up', '近1月上行')
+        .replace('1m down', '近1月下行')
+        .replace('1m flat', '近1月震荡')
+        .replace(';', '，');
+    }
+
+    function translatePriceText(text) {
+      return text
+        .replace('CNY/L', '元/升')
+        .replace('USD/barrel', '美元/桶')
+        .replace('CNY/barrel', '元/桶');
+    }
+
+    function makeMetricCard(metric) {
+      const card = document.createElement('article');
+      const featured = metric.kicker === 'chengdu-92';
+      card.className = `metric-card card${featured ? ' featured' : ''}`;
+      const trendHtml = metric.trends.map(item => `
+        <div class="pill">
+          <b>${trendLabelMap[item.label] || item.label}</b>
+          <div class="trend-value ${pctClass(item.direction)}">
+            <span>${directionArrow(item.direction)}</span>
+            <span>${fmtPct(item.changePct)}</span>
+          </div>
+        </div>
+      `).join('');
+
+      const badges = [];
+      if (metric.kicker === 'chengdu-92' || metric.kicker === 'chengdu-95') {
+        badges.push('成都民用零售价');
+      }
+      if (metric.kicker === 'brent') {
+        badges.push('国际基准');
+      }
+      if (metric.kicker === 'shanghai-crude') {
+        badges.push('国内原油风向');
+      }
+
+      card.innerHTML = `
+        <div class="metric-kicker">
+          <span>${metricNameMap[metric.kicker] || metric.kicker}</span>
+          <span class="${pctClass(metric.view.direction)}">${viewLabel(metric.view.label)}</span>
+        </div>
+        <div class="metric-price">${translatePriceText(metric.priceText)}</div>
+        <div class="metric-sub">${metricSubMap[metric.kicker] || metric.subText}</div>
+        <div class="metric-badges">${badges.map(text => `<span class="metric-badge">${text}</span>`).join('')}</div>
+        <div class="trend-row">${trendHtml}</div>
+      `;
+      return card;
+    }
+
+    function createSpark(points, stroke) {
+      const width = 540;
+      const height = 170;
+      const padding = 16;
+      const values = points.map(p => Number(p.value));
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const span = Math.max(max - min, 0.0001);
+      const step = points.length > 1 ? (width - padding * 2) / (points.length - 1) : 0;
+      const poly = points.map((p, idx) => {
+        const x = padding + idx * step;
+        const y = height - padding - ((Number(p.value) - min) / span) * (height - padding * 2);
+        return `${x},${y}`;
+      }).join(' ');
+
+      const area = `M ${padding} ${height - padding} L ${poly} L ${width - padding} ${height - padding} Z`;
+      return `
+        <svg class="spark" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="fill-${stroke.replace('#','')}" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="${stroke}" stop-opacity="0.32"></stop>
+              <stop offset="100%" stop-color="${stroke}" stop-opacity="0.04"></stop>
+            </linearGradient>
+          </defs>
+          <path d="${area}" fill="url(#fill-${stroke.replace('#','')})"></path>
+          <polyline fill="none" stroke="${stroke}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="${poly}"></polyline>
+        </svg>
+      `;
+    }
+
+    function makeChartPanel(chart, stroke) {
+      const el = document.createElement('div');
+      el.className = 'chart-panel';
+      const first = chart.points[0];
+      const last = chart.points[chart.points.length - 1];
+      el.innerHTML = `
+        <strong>${metricNameMap[chart.title] ? metricNameMap[chart.title] + '走势' : chart.title}</strong>
+        ${createSpark(chart.points, stroke)}
+        <div class="legend">
+          <span>${first.label}</span>
+          <span>${last.label}</span>
+        </div>
+      `;
+      return el;
+    }
+
+    function fillSignals() {
+      const host = document.getElementById('signal-list');
+      data.signals.forEach(item => {
+        const el = document.createElement('div');
+        el.className = 'signal';
+        const translated = translateSignalText(item.text);
+        const direction = translated.includes('偏强') ? 'up' : translated.includes('偏弱') ? 'down' : 'flat';
+        el.innerHTML = `
+          <small>${signalTitleMap[item.title] || item.title}</small>
+          <strong>${translated}</strong>
+          <span class="mini-chip ${pctClass(direction)}">${directionArrow(direction)} ${direction === 'up' ? '偏强' : direction === 'down' ? '偏弱' : '震荡'}</span>
+        `;
+        host.appendChild(el);
+      });
+    }
+
+    function fillCivilTable() {
+      const body = document.getElementById('civil-history-body');
+      data.civilOil.history.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.date}</td>
+          <td>${fmtNum(row.oil92)}</td>
+          <td>${fmtNum(row.oil95)}</td>
+          <td>${fmtNum(row.oil98)}</td>
+          <td>${fmtNum(row.diesel0)}</td>
+        `;
+        body.appendChild(tr);
+      });
+    }
+
+    function fillSnapshot() {
+      const rows = [
+        ['成都92#汽油', `${fmtNum(data.civilOil.latest.oil92)} 元/升`],
+        ['成都95#汽油', `${fmtNum(data.civilOil.latest.oil95)} 元/升`],
+        ['成都98#汽油', `${fmtNum(data.civilOil.latest.oil98)} 元/升`],
+        ['成都0#柴油', `${fmtNum(data.civilOil.latest.diesel0)} 元/升`],
+        ['Brent国际油价', `${fmtNum(data.brent.latest.price, 3)} 美元/桶`],
+        ['上海原油连续', `${fmtNum(data.domestic.latest.price, 3)} 元/桶`]
+      ];
+      const body = document.getElementById('snapshot-body');
+      rows.forEach(([k, v]) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${k}</td><td>${v}</td>`;
+        body.appendChild(tr);
+      });
+    }
+
+    function init() {
+      document.title = `成都民用油价 + 国际原油监测看板 ${data.dashboardDate}`;
+      document.getElementById('hero-title').innerHTML = `成都民用油价 + 国际原油监测看板<br />${data.dashboardDate}`;
+      document.getElementById('generated-at').textContent = `更新时间：${data.generatedAt}`;
+      document.getElementById('civil-source').textContent = `民用油价来源：${data.civilOil.source}`;
+      document.getElementById('market-source').textContent = `市场数据来源：新浪行情`;
+
+      const metricGrid = document.getElementById('metric-grid');
+      data.metrics.forEach(metric => metricGrid.appendChild(makeMetricCard(metric)));
+
+      const chartGrid = document.getElementById('chart-grid');
+      const colors = ['#d6532f', '#0f8b5f', '#f0a33a'];
+      data.charts.forEach((chart, idx) => chartGrid.appendChild(makeChartPanel(chart, colors[idx % colors.length])));
+
+      fillSignals();
+      fillCivilTable();
+      fillSnapshot();
+    }
+
+    init();
+  </script>
+</body>
+</html>
+
