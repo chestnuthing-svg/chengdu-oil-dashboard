@@ -1,5 +1,5 @@
 ﻿{
-    "generatedAt":  "2026-05-08 18:04",
+    "generatedAt":  "2026-05-08 19:00",
     "dashboardTitle":  "dashboard",
     "dashboardDate":  "2026-05-08",
     "civilOil":  {
@@ -87,7 +87,7 @@
                  },
     "brent":  {
                   "latest":  {
-                                 "price":  100.442
+                                 "price":  100.205
                              }
               },
     "domestic":  {
@@ -150,7 +150,7 @@
                     },
                     {
                         "kicker":  "brent",
-                        "priceText":  "100.442 USD/barrel",
+                        "priceText":  "100.205 USD/barrel",
                         "subText":  "global crude benchmark.",
                         "view":  {
                                      "label":  "trend mixed",
@@ -159,17 +159,17 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  -2.94,
+                                           "changePct":  -3.16,
                                            "direction":  "down"
                                        },
                                        {
                                            "label":  "7d",
-                                           "changePct":  -7.97,
+                                           "changePct":  -8.19,
                                            "direction":  "down"
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  3.92,
+                                           "changePct":  3.68,
                                            "direction":  "up"
                                        }
                                    ]
@@ -376,7 +376,7 @@
                                       },
                                       {
                                           "label":  "05-08",
-                                          "value":  100.84
+                                          "value":  100.12
                                       }
                                   ]
                    },
