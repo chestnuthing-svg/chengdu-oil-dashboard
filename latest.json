@@ -1,7 +1,7 @@
 ﻿{
-    "generatedAt":  "2026-06-06 16:46",
+    "generatedAt":  "2026-06-07 14:55",
     "dashboardTitle":  "dashboard",
-    "dashboardDate":  "2026-06-06",
+    "dashboardDate":  "2026-06-07",
     "civilOil":  {
                      "source":  "Autohome Chengdu Oil",
                      "sourceUrl":  "https://www.autohome.com.cn/oil/510100.html",
@@ -107,8 +107,8 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  -4.74,
-                                           "direction":  "down"
+                                           "changePct":  0,
+                                           "direction":  "flat"
                                        },
                                        {
                                            "label":  "7d",
@@ -133,8 +133,8 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  -4.65,
-                                           "direction":  "down"
+                                           "changePct":  0,
+                                           "direction":  "flat"
                                        },
                                        {
                                            "label":  "7d",
@@ -169,7 +169,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -10.35,
+                                           "changePct":  -7.46,
                                            "direction":  "down"
                                        }
                                    ]
@@ -195,7 +195,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -6.71,
+                                           "changePct":  -6.52,
                                            "direction":  "down"
                                        }
                                    ]
@@ -509,7 +509,7 @@
     "signals":  [
                     {
                         "title":  "chengdu-retail",
-                        "text":  "chengdu retail：整体偏弱；当日下跌，近7日下跌，近1月下跌。"
+                        "text":  "chengdu retail：整体偏弱；当日持平，近7日下跌，近1月下跌。"
                     },
                     {
                         "title":  "brent",
