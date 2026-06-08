@@ -1,7 +1,7 @@
 ﻿{
-    "generatedAt":  "2026-06-07 14:55",
+    "generatedAt":  "2026-06-08 12:00",
     "dashboardTitle":  "dashboard",
-    "dashboardDate":  "2026-06-07",
+    "dashboardDate":  "2026-06-08",
     "civilOil":  {
                      "source":  "Autohome Chengdu Oil",
                      "sourceUrl":  "https://www.autohome.com.cn/oil/510100.html",
@@ -87,12 +87,12 @@
                  },
     "brent":  {
                   "latest":  {
-                                 "price":  92.77
+                                 "price":  96.448
                              }
               },
     "domestic":  {
                      "latest":  {
-                                    "price":  583.8
+                                    "price":  604.7
                                 }
                  },
     "metrics":  [
@@ -117,7 +117,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -1.17,
+                                           "changePct":  -4.09,
                                            "direction":  "down"
                                        }
                                    ]
@@ -143,14 +143,14 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -1.2,
+                                           "changePct":  -4.04,
                                            "direction":  "down"
                                        }
                                    ]
                     },
                     {
                         "kicker":  "brent",
-                        "priceText":  "92.770 USD/barrel",
+                        "priceText":  "96.448 USD/barrel",
                         "subText":  "global crude benchmark.",
                         "view":  {
                                      "label":  "trend mixed",
@@ -159,24 +159,24 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  -0.08,
-                                           "direction":  "flat"
+                                           "changePct":  3.89,
+                                           "direction":  "up"
                                        },
                                        {
                                            "label":  "7d",
-                                           "changePct":  1.83,
+                                           "changePct":  1.26,
                                            "direction":  "up"
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -7.46,
+                                           "changePct":  -3.79,
                                            "direction":  "down"
                                        }
                                    ]
                     },
                     {
                         "kicker":  "shanghai-crude",
-                        "priceText":  "583.800 CNY/barrel",
+                        "priceText":  "604.700 CNY/barrel",
                         "subText":  "domestic market proxy.",
                         "view":  {
                                      "label":  "trend mixed",
@@ -185,17 +185,17 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  -1.82,
-                                           "direction":  "down"
+                                           "changePct":  1.7,
+                                           "direction":  "up"
                                        },
                                        {
                                            "label":  "7d",
-                                           "changePct":  0.48,
+                                           "changePct":  1.48,
                                            "direction":  "up"
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -6.52,
+                                           "changePct":  -3.17,
                                            "direction":  "down"
                                        }
                                    ]
@@ -258,10 +258,6 @@
                    {
                        "title":  "brent",
                        "points":  [
-                                      {
-                                          "label":  "04-27",
-                                          "value":  101.96
-                                      },
                                       {
                                           "label":  "04-28",
                                           "value":  104.24
@@ -377,6 +373,10 @@
                                       {
                                           "label":  "06-05",
                                           "value":  92.84
+                                      },
+                                      {
+                                          "label":  "06-08",
+                                          "value":  96.35
                                       }
                                   ]
                    },
@@ -513,11 +513,11 @@
                     },
                     {
                         "title":  "brent",
-                        "text":  "brent：震荡为主；当日持平，近7日上涨，近1月下跌。"
+                        "text":  "brent：震荡为主；当日上涨，近7日上涨，近1月下跌。"
                     },
                     {
                         "title":  "shanghai-crude",
-                        "text":  "shanghai crude：震荡为主；当日下跌，近7日上涨，近1月下跌。"
+                        "text":  "shanghai crude：震荡为主；当日上涨，近7日上涨，近1月下跌。"
                     }
                 ]
 }
