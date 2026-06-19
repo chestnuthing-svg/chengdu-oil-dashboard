@@ -1,7 +1,7 @@
 ﻿{
-    "generatedAt":  "2026-06-18 12:00",
+    "generatedAt":  "2026-06-19 12:26",
     "dashboardTitle":  "dashboard",
-    "dashboardDate":  "2026-06-18",
+    "dashboardDate":  "2026-06-19",
     "civilOil":  {
                      "source":  "Autohome Chengdu Oil",
                      "sourceUrl":  "https://www.autohome.com.cn/oil/510100.html",
@@ -87,7 +87,7 @@
                  },
     "brent":  {
                   "latest":  {
-                                 "price":  78.016
+                                 "price":  79.143
                              }
               },
     "domestic":  {
@@ -150,26 +150,26 @@
                     },
                     {
                         "kicker":  "brent",
-                        "priceText":  "78.016 USD/barrel",
+                        "priceText":  "79.143 USD/barrel",
                         "subText":  "global crude benchmark.",
                         "view":  {
-                                     "label":  "trend weak",
-                                     "direction":  "down"
+                                     "label":  "trend mixed",
+                                     "direction":  "flat"
                                  },
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  -0.48,
-                                           "direction":  "down"
+                                           "changePct":  0.26,
+                                           "direction":  "up"
                                        },
                                        {
                                            "label":  "7d",
-                                           "changePct":  -12.49,
+                                           "changePct":  -8.74,
                                            "direction":  "down"
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -29.68,
+                                           "changePct":  -24.71,
                                            "direction":  "down"
                                        }
                                    ]
@@ -185,17 +185,17 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  -0.33,
-                                           "direction":  "down"
+                                           "changePct":  0,
+                                           "direction":  "flat"
                                        },
                                        {
                                            "label":  "7d",
-                                           "changePct":  -12.64,
+                                           "changePct":  -8.13,
                                            "direction":  "down"
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -25.34,
+                                           "changePct":  -24.16,
                                            "direction":  "down"
                                        }
                                    ]
@@ -258,10 +258,6 @@
                    {
                        "title":  "brent",
                        "points":  [
-                                      {
-                                          "label":  "05-08",
-                                          "value":  100.25
-                                      },
                                       {
                                           "label":  "05-11",
                                           "value":  104.51
@@ -376,17 +372,17 @@
                                       },
                                       {
                                           "label":  "06-18",
-                                          "value":  78.02
+                                          "value":  78.94
+                                      },
+                                      {
+                                          "label":  "06-19",
+                                          "value":  79.01
                                       }
                                   ]
                    },
                    {
                        "title":  "shanghai-crude",
                        "points":  [
-                                      {
-                                          "label":  "05-07",
-                                          "value":  625.8
-                                      },
                                       {
                                           "label":  "05-08",
                                           "value":  624.5
@@ -502,6 +498,10 @@
                                       {
                                           "label":  "06-17",
                                           "value":  510.2
+                                      },
+                                      {
+                                          "label":  "06-18",
+                                          "value":  508.5
                                       }
                                   ]
                    }
@@ -513,11 +513,11 @@
                     },
                     {
                         "title":  "brent",
-                        "text":  "brent：整体偏弱；当日下跌，近7日下跌，近1月下跌。"
+                        "text":  "brent：震荡为主；当日上涨，近7日下跌，近1月下跌。"
                     },
                     {
                         "title":  "shanghai-crude",
-                        "text":  "shanghai crude：整体偏弱；当日下跌，近7日下跌，近1月下跌。"
+                        "text":  "shanghai crude：整体偏弱；当日持平，近7日下跌，近1月下跌。"
                     }
                 ]
 }
