@@ -1,7 +1,7 @@
 ﻿{
-    "generatedAt":  "2026-06-20 12:36",
+    "generatedAt":  "2026-06-21 13:07",
     "dashboardTitle":  "dashboard",
-    "dashboardDate":  "2026-06-20",
+    "dashboardDate":  "2026-06-21",
     "civilOil":  {
                      "source":  "Autohome Chengdu Oil",
                      "sourceUrl":  "https://www.autohome.com.cn/oil/510100.html",
@@ -117,7 +117,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -8.74,
+                                           "changePct":  -9.36,
                                            "direction":  "down"
                                        }
                                    ]
@@ -143,7 +143,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -8.71,
+                                           "changePct":  -9.29,
                                            "direction":  "down"
                                        }
                                    ]
@@ -169,7 +169,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -23.74,
+                                           "changePct":  -20.66,
                                            "direction":  "down"
                                        }
                                    ]
@@ -195,7 +195,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  -22.48,
+                                           "changePct":  -20.68,
                                            "direction":  "down"
                                        }
                                    ]
