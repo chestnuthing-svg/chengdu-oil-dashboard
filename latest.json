@@ -1,5 +1,5 @@
 ﻿{
-    "generatedAt":  "2026-09-14 01:07",
+    "generatedAt":  "2026-09-14 12:16",
     "dashboardTitle":  "dashboard",
     "dashboardDate":  "2026-09-14",
     "civilOil":  {
@@ -87,12 +87,12 @@
                  },
     "brent":  {
                   "latest":  {
-                                 "price":  104.246
+                                 "price":  107.853
                              }
               },
     "domestic":  {
                      "latest":  {
-                                    "price":  850
+                                    "price":  901.7
                                 }
                  },
     "metrics":  [
@@ -150,7 +150,7 @@
                     },
                     {
                         "kicker":  "brent",
-                        "priceText":  "104.246 USD/barrel",
+                        "priceText":  "107.853 USD/barrel",
                         "subText":  "global crude benchmark.",
                         "view":  {
                                      "label":  "trend strong",
@@ -159,24 +159,24 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  0.45,
+                                           "changePct":  3.92,
                                            "direction":  "up"
                                        },
                                        {
                                            "label":  "7d",
-                                           "changePct":  7.18,
+                                           "changePct":  10.89,
                                            "direction":  "up"
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  17.58,
+                                           "changePct":  21.65,
                                            "direction":  "up"
                                        }
                                    ]
                     },
                     {
                         "kicker":  "shanghai-crude",
-                        "priceText":  "850.000 CNY/barrel",
+                        "priceText":  "901.700 CNY/barrel",
                         "subText":  "domestic market proxy.",
                         "view":  {
                                      "label":  "trend strong",
@@ -185,17 +185,17 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  4.56,
+                                           "changePct":  10.92,
                                            "direction":  "up"
                                        },
                                        {
                                            "label":  "7d",
-                                           "changePct":  21.55,
+                                           "changePct":  28.94,
                                            "direction":  "up"
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  52.82,
+                                           "changePct":  62.12,
                                            "direction":  "up"
                                        }
                                    ]
@@ -258,10 +258,6 @@
                    {
                        "title":  "brent",
                        "points":  [
-                                      {
-                                          "label":  "08-03",
-                                          "value":  83.58
-                                      },
                                       {
                                           "label":  "08-04",
                                           "value":  78.72
@@ -377,6 +373,10 @@
                                       {
                                           "label":  "09-11",
                                           "value":  103.78
+                                      },
+                                      {
+                                          "label":  "09-14",
+                                          "value":  107.85
                                       }
                                   ]
                    },
