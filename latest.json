@@ -1,7 +1,7 @@
 ﻿{
-    "generatedAt":  "2026-09-25 19:05",
+    "generatedAt":  "2026-09-27 00:49",
     "dashboardTitle":  "dashboard",
-    "dashboardDate":  "2026-09-25",
+    "dashboardDate":  "2026-09-27",
     "civilOil":  {
                      "source":  "Autohome Chengdu Oil",
                      "sourceUrl":  "https://www.autohome.com.cn/oil/510100.html",
@@ -87,7 +87,7 @@
                  },
     "brent":  {
                   "latest":  {
-                                 "price":  98.95
+                                 "price":  97.484
                              }
               },
     "domestic":  {
@@ -107,8 +107,8 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  3.69,
-                                           "direction":  "up"
+                                           "changePct":  0,
+                                           "direction":  "flat"
                                        },
                                        {
                                            "label":  "7d",
@@ -133,8 +133,8 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  3.79,
-                                           "direction":  "up"
+                                           "changePct":  0,
+                                           "direction":  "flat"
                                        },
                                        {
                                            "label":  "7d",
@@ -150,7 +150,7 @@
                     },
                     {
                         "kicker":  "brent",
-                        "priceText":  "98.950 USD/barrel",
+                        "priceText":  "97.484 USD/barrel",
                         "subText":  "global crude benchmark.",
                         "view":  {
                                      "label":  "trend mixed",
@@ -159,17 +159,17 @@
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  -1.26,
-                                           "direction":  "down"
-                                       },
-                                       {
-                                           "label":  "7d",
-                                           "changePct":  -0.08,
+                                           "changePct":  0.06,
                                            "direction":  "flat"
                                        },
                                        {
+                                           "label":  "7d",
+                                           "changePct":  -1.56,
+                                           "direction":  "down"
+                                       },
+                                       {
                                            "label":  "1m",
-                                           "changePct":  14.23,
+                                           "changePct":  10.44,
                                            "direction":  "up"
                                        }
                                    ]
@@ -195,7 +195,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  33.63,
+                                           "changePct":  24.64,
                                            "direction":  "up"
                                        }
                                    ]
@@ -376,7 +376,7 @@
                                       },
                                       {
                                           "label":  "09-25",
-                                          "value":  98.79
+                                          "value":  97.43
                                       }
                                   ]
                    },
@@ -509,11 +509,11 @@
     "signals":  [
                     {
                         "title":  "chengdu-retail",
-                        "text":  "chengdu retail：整体偏强；当日上涨，近7日上涨，近1月上涨。"
+                        "text":  "chengdu retail：整体偏强；当日持平，近7日上涨，近1月上涨。"
                     },
                     {
                         "title":  "brent",
-                        "text":  "brent：震荡为主；当日下跌，近7日持平，近1月上涨。"
+                        "text":  "brent：震荡为主；当日持平，近7日下跌，近1月上涨。"
                     },
                     {
                         "title":  "shanghai-crude",
