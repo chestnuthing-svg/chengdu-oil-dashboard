@@ -1,5 +1,5 @@
 ﻿{
-    "generatedAt":  "2026-10-02 03:18",
+    "generatedAt":  "2026-10-02 12:00",
     "dashboardTitle":  "dashboard",
     "dashboardDate":  "2026-10-02",
     "civilOil":  {
@@ -87,7 +87,7 @@
                  },
     "brent":  {
                   "latest":  {
-                                 "price":  102.519
+                                 "price":  102.176
                              }
               },
     "domestic":  {
@@ -150,26 +150,26 @@
                     },
                     {
                         "kicker":  "brent",
-                        "priceText":  "102.519 USD/barrel",
+                        "priceText":  "102.176 USD/barrel",
                         "subText":  "global crude benchmark.",
                         "view":  {
-                                     "label":  "trend strong",
-                                     "direction":  "up"
+                                     "label":  "trend mixed",
+                                     "direction":  "flat"
                                  },
                         "trends":  [
                                        {
                                            "label":  "day",
-                                           "changePct":  0.23,
-                                           "direction":  "up"
+                                           "changePct":  -0.85,
+                                           "direction":  "down"
                                        },
                                        {
                                            "label":  "7d",
-                                           "changePct":  5.22,
+                                           "changePct":  4.87,
                                            "direction":  "up"
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  7.63,
+                                           "changePct":  7.27,
                                            "direction":  "up"
                                        }
                                    ]
@@ -258,10 +258,6 @@
                    {
                        "title":  "brent",
                        "points":  [
-                                      {
-                                          "label":  "08-21",
-                                          "value":  91.94
-                                      },
                                       {
                                           "label":  "08-24",
                                           "value":  90.29
@@ -376,7 +372,11 @@
                                       },
                                       {
                                           "label":  "10-01",
-                                          "value":  102.28
+                                          "value":  103.05
+                                      },
+                                      {
+                                          "label":  "10-02",
+                                          "value":  102.27
                                       }
                                   ]
                    },
@@ -513,7 +513,7 @@
                     },
                     {
                         "title":  "brent",
-                        "text":  "brent：整体偏强；当日上涨，近7日上涨，近1月上涨。"
+                        "text":  "brent：震荡为主；当日下跌，近7日上涨，近1月上涨。"
                     },
                     {
                         "title":  "shanghai-crude",
