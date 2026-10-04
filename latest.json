@@ -1,7 +1,7 @@
 ﻿{
-    "generatedAt":  "2026-10-03 12:27",
+    "generatedAt":  "2026-10-04 13:04",
     "dashboardTitle":  "dashboard",
-    "dashboardDate":  "2026-10-03",
+    "dashboardDate":  "2026-10-04",
     "civilOil":  {
                      "source":  "Autohome Chengdu Oil",
                      "sourceUrl":  "https://www.autohome.com.cn/oil/510100.html",
@@ -169,7 +169,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  7.09,
+                                           "changePct":  7.1,
                                            "direction":  "up"
                                        }
                                    ]
@@ -195,7 +195,7 @@
                                        },
                                        {
                                            "label":  "1m",
-                                           "changePct":  4.3,
+                                           "changePct":  3.77,
                                            "direction":  "up"
                                        }
                                    ]
